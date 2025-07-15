@@ -1,3 +1,7 @@
+* {
+    font-family:Arial, Helvetica, sans-serif;
+}
+
 html {
     display: flex;
     justify-content: center;
@@ -17,30 +21,46 @@ body {
     grid-template-rows: 64px auto 32px auto 32px;
     grid-template-columns: 33% auto 33%;
     background-color:rgb(43, 104, 99);
-    width: 500px;
-    height: 500px;
+    width: 600px;
+    height: 600px;
+    border-radius: 50px;
 }
 
 button {
-    color:rgb(0, 0, 0);
-    background-color: rgb(141, 187, 172);
-    margin: 2px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+button:active {
+    scale: 0.9;
 }
 
 #title {
     color: rgb(0, 0, 0);
-    margin: 2px;
     grid-area: title;
+    margin: 0px;
+    font-size: 35px;
 }
 
 #open-input {
     grid-area: open;
-    margin: 2px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#file-input {
+    position:absolute;
+    opacity: 0;
+    inset: 0;
 }
 
 #scrub-input {
+    display: flex;
     grid-area: scrub;
-    margin: 2px;
+    position: relative;
 }
 
 #previous-button {
@@ -51,21 +71,45 @@ button {
     grid-area: playpause;
 }
 
+#play-icon {
+
+}
+
+#pause-icon {
+    display: none;
+}
+
 #next-button {
     grid-area: next;
 }
 
 #beats {
     grid-area: beats;
-    margin: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #tumo {
     grid-area: tumo;
-    margin: 2px;
 }
 
 #volume-input {
+    display:flex;
     grid-area: volume;
-    margin: 2px,
+    position: relative;
+}
+
+.range-bar{
+    position: absolute;
+    inset: 0;
+    background-color: white;
+    pointer-events: none;
+    transform: scaleX(0.5);
+    transform-origin: left;
+}
+
+input[type="range"] {
+    flex: 1;
+    opacity: 0;
 }
