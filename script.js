@@ -25,7 +25,6 @@ window.onload = async function() {
 
 
 
-
     //funçoes
     function changeTitle(value) {
         title.innerText = value;
