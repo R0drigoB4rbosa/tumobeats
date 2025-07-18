@@ -17,11 +17,14 @@ window.onload = async function() {
 
     let scrubInput = document.querySelector("#scrub-input");
     let volumeInput = document.querySelector("#volume-input");
+    let rangeBar = document.querySelector(".range-bar");
 
     let fileInput = document.querySelector("#file-input");
 
     let audio = document.querySelector("audio");
+    audio.src = audioData[0].url;
     let currentMusic = 0;
+    let pauseTime = 0;
 
 
 
@@ -45,7 +48,10 @@ window.onload = async function() {
 
         if(audio.paused) {
             playAudio();
+            audio.currentTime = pauseTime;
+            pauseTime = 0;
         } else {
+            pauseTime = audio.currentTime;
             pauseAudio();
         }
     }
@@ -70,6 +76,17 @@ window.onload = async function() {
         let value = event.target.value;
         audio.volume = value / 100;
         updateInputBar(value, bar);
+        if(audio.volume == 0) {
+            let muteIcon = document.querySelector("#mute-icon");
+            let unmuteIcon = document.querySelector("#unmuted-icon");
+            unmuteIcon.style.display = "none";
+            muteIcon.style.display = "initial";
+        } else {
+            let muteIcon = document.querySelector("#mute-icon");
+            let unmuteIcon = document.querySelector("#unmuted-icon");
+            unmuteIcon.style.display = "initial";
+            muteIcon.style.display = "none";
+        } 
     }
 
     fileInput.oninput = function(event) {
@@ -100,14 +117,14 @@ window.onload = async function() {
         let playIcon = document.querySelector("#icon-play");
         let pauseIcon = document.querySelector("#icon-pause");
         playIcon.style.display = "none";
-        pauseIcon.style.display = "block";
+        pauseIcon.style.display = "initial";
 
     }
 
     audio.onpause = function() {
         let playIcon = document.querySelector("#icon-play");
         let pauseIcon = document.querySelector("#icon-pause");
-        playIcon.style.display = "block";
+        playIcon.style.display = "initial";
         pauseIcon.style.display = "none";
     }
 
@@ -118,11 +135,13 @@ window.onload = async function() {
         updateInputBar(value, bar);
     }
 
-    function scrubAudio(value) {
+    audio.onended = function() {
+        nextButton.click();
+    }
 
+    function scrubAudio(value) {
         if(!audio.src) return;
         audio.currentTime = audio.duration * (value / 100);
     }
-
 
 }
